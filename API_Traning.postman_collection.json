@@ -1,0 +1,340 @@
+{
+  "info": {
+    "_postman_id": "45406bd0-bd89-413a-9edc-ddb819c0d91a",
+    "name": "API_Traning",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55685191",
+    "_collection_link": "https://go.postman.co/collection/55685191-45406bd0-bd89-413a-9edc-ddb819c0d91a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "list",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "{{X-Reqres-Env}}"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/collections/products/records",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "collections",
+            "products",
+            "records"
+          ]
+        },
+        "description": "Generated from cURL: curl -X GET 'https://reqres.in/api/collections/products/records?project_id=28903' \\\r\n  -H 'x-api-key: pro_4f0135b73cde6e9cb892ca96f4a3f8c95c0aa4596ba452f0d555f128f0c11eeb' \\\r\n  -H 'X-Reqres-Env: prod'"
+      },
+      "response": []
+    },
+    {
+      "name": "add item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "// Parse response JSON\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "// Save values as a variable\r",
+              "pm.environment.set(\"user_Id\", response.data.id);\r",
+              "pm.environment.set(\"project_id\", response.data.project_id);\r",
+              "\r",
+              "//get request data\r",
+              "\r",
+              "let requestData = pm.request.body.raw;\r",
+              "let requestJson = JSON.parse(requestData);\r",
+              "\r",
+              "//get response data\r",
+              "\r",
+              "\r",
+              "let responseJson = pm.response.json();\r",
+              "\r",
+              "// Extract response data\r",
+              "let responseData = responseJson.data.data;\r",
+              "\r",
+              "// Assertions\r",
+              "\r",
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "}); \r",
+              "\r",
+              "pm.test(\"Name matches\", function () {\r",
+              "    pm.expect(responseData.name).to.eql(requestJson.data.name);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Price matches\", function () {\r",
+              "    pm.expect(responseData.price).to.eql(requestJson.data.price);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Category matches\", function () {\r",
+              "    pm.expect(responseData.category).to.eql(requestJson.data.category);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Stock matches\", function () {\r",
+              "    pm.expect(responseData.in_stock).to.eql(requestJson.data.in_stock);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "{{X-Reqres-Env}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "{{Content-Type}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"data\": {\r\n    \"name\": \"{{name}}\",\r\n    \"price\": {{price}},\r\n    \"category\": \"{{category}}\",\r\n    \"in_stock\": {{in_stock}}\r\n  }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://reqres.in/api/collections/products/records",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "collections",
+            "products",
+            "records"
+          ]
+        },
+        "description": "Generated from cURL: curl -X POST 'https://reqres.in/api/collections/products/records?project_id=28903' \\\r\n  -H 'x-api-key: pro_4f0135b73cde6e9cb892ca96f4a3f8c95c0aa4596ba452f0d555f128f0c11eeb' \\\r\n  -H 'X-Reqres-Env: prod' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"data\": {\r\n    \"name\": \"Wireless Headphones\",\r\n    \"price\": 59.99,\r\n    \"category\": \"Electronics\",\r\n    \"in_stock\": true\r\n  }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "get item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "{{X-Reqres-Env}}"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/collections/products/records/{{user_Id}}",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "collections",
+            "products",
+            "records",
+            "{{user_Id}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -X GET 'https://reqres.in/api/collections/products/records/b94cb78b-f003-4408-94aa-3e77538c07d5?project_id=28903' \\\r\n  -H 'x-api-key: pro_4f0135b73cde6e9cb892ca96f4a3f8c95c0aa4596ba452f0d555f128f0c11eeb' \\\r\n  -H 'X-Reqres-Env: prod'"
+      },
+      "response": []
+    },
+    {
+      "name": "update item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "{{X-Reqres-Env}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "{{Content-Type}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"data\": {\r\n    \"name\": \"Wireless Headphones\",\r\n    \"price\": 60.00,\r\n    \"category\": \"Electronics\",\r\n    \"in_stock\": true\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://reqres.in/api/collections/products/records/{{user_Id}}",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "collections",
+            "products",
+            "records",
+            "{{user_Id}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -X PUT 'https://reqres.in/api/collections/products/records/b94cb78b-f003-4408-94aa-3e77538c07d5?project_id=28903' \\\r\n  -H 'x-api-key: pro_4f0135b73cde6e9cb892ca96f4a3f8c95c0aa4596ba452f0d555f128f0c11eeb' \\\r\n  -H 'X-Reqres-Env: prod' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"data\": {\r\n    \"name\": \"Wireless Headphones\",\r\n    \"price\": 59.99,\r\n    \"category\": \"Electronics\",\r\n    \"in_stock\": true\r\n  }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "delete item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "{{X-Reqres-Env}}"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/collections/products/records/{{user_Id}}",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "collections",
+            "products",
+            "records",
+            "{{user_Id}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -X DELETE 'https://reqres.in/api/collections/products/records/b94cb78b-f003-4408-94aa-3e77538c07d5?project_id=28903' \\\r\n  -H 'x-api-key: pro_4f0135b73cde6e9cb892ca96f4a3f8c95c0aa4596ba452f0d555f128f0c11eeb' \\\r\n  -H 'X-Reqres-Env: prod'"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
